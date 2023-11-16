@@ -1,20 +1,24 @@
 # BOOK STORE API
- Online Bookstore RESTful API *By*
-***ŞEYMA AYDIN***  
+ Online Bookstore RESTful API 
+ <br>
+ *By* ***ŞEYMA AYDIN***  
+ <br>
 
-While developing this project, Spring Boot, Cache, Dockerize and MySQL technologies were used.
-
+- Design and implement a RESTful API for an online bookstore using Java and Spring Boot. 
+- This API should provide essential functionality for both the user and the bookstore admin.
+- Two types of user information can be obtained. These consist of 'ADMIN' and 'USER' privileges. Users performing book-related operations are expected to have 'ADMIN' authority.
+- When getting the book list or book, it will be sufficient to have admin and user read privileges.
+- Books can be ordered with the logged in user information.
 
 ## Technologies & Tools
 
 - Java 17
 - Maven
-- Spring Boot 2.7.0
-- Cache
+- Spring Boot 3.1.5
+- Spring Security
+- Spring Data JPA
 - Lombok
-- MySql
-- Redis
-- JUnit
+- MySQL
 
 ## API List
 
