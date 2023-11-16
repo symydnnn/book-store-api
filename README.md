@@ -389,6 +389,8 @@ Request parameteres:
   
 
 ## SWAGGER USING
+- **PORT** : 8080
+- **PATH** : /swagger-ui/index.html
 ![image](https://github.com/symydnnn/book-store-api/assets/73581330/e8ed53c5-3717-413d-8090-5c4b3713e8c5)
 
 
