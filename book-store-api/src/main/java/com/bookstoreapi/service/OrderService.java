@@ -2,7 +2,6 @@ package com.bookstoreapi.service;
 
 import com.bookstoreapi.dao.BookDAO;
 import com.bookstoreapi.dao.OrderDAO;
-import com.bookstoreapi.dao.OrderRequest;
 import com.bookstoreapi.dao.UserDAO;
 import com.bookstoreapi.entity.Book;
 import com.bookstoreapi.entity.Order;
@@ -44,7 +43,7 @@ public class OrderService implements IOrderService {
 
     @Override
     @Transactional
-    public OrderDAO save(OrderRequest orderRequest) {
+    public OrderDAO save(List<String> bookISBNList) {
         try {
 
             String email = securityService.getCurrenUserEmail();
@@ -53,7 +52,7 @@ public class OrderService implements IOrderService {
                 throw new AuthException();
             }
 
-            if (ObjectUtils.isEmpty(orderRequest)) {
+            if (ObjectUtils.isEmpty(bookISBNList)) {
                 throw new WrongRequestParametersException(MessageTypeEnums.WRONG_REQUEST_PARAMETERS.getMessage());
             }
 
@@ -68,7 +67,7 @@ public class OrderService implements IOrderService {
                     .orderDate(new Date())
                     .build());
 
-            for (String isbn : orderRequest.getBookISBNList()) {
+            for (String isbn : bookISBNList) {
                 if (isbn == null) {
                     throw new WrongRequestParametersException(MessageTypeEnums.WRONG_REQUEST_PARAMETERS.getMessage()
                             + " Book ISBN should be not empty.");
@@ -101,8 +100,11 @@ public class OrderService implements IOrderService {
             Order newOrder = orderRepository.save(mapper.convertValue(order, Order.class));
             log.info("OrderService - save : orderRequest info saved. Total Price : {}", order.getTotalPrice());
 
+            UserDAO userDAO = mapper.convertValue(user, UserDAO.class);
+            userDAO.setPassword(null);
+
             return OrderDAO.builder().id(newOrder.getId())
-                    .user(mapper.convertValue(user, UserDAO.class))
+                    .user(userDAO)
                     .listOfBooks(bookList)
                     .totalPrice(newOrder.getTotalPrice())
                     .orderDate(newOrder.getOrderDate())

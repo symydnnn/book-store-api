@@ -1,7 +1,6 @@
 package com.bookstoreapi.controller;
 
 import com.bookstoreapi.dao.OrderDAO;
-import com.bookstoreapi.dao.OrderRequest;
 import com.bookstoreapi.service.IOrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,9 +25,9 @@ public class OrderController {
 
     @Operation(description = "Save An Order", tags = {"orders"})
     @PostMapping
-    public ResponseEntity<OrderDAO> save(@RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderDAO> save(@RequestBody List<String> bookISBNList) {
 
-        return ResponseEntity.ok(orderService.save(orderRequest));
+        return ResponseEntity.ok(orderService.save(bookISBNList));
     }
 
 
